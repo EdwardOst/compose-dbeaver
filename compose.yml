@@ -1,0 +1,31 @@
+name: mysql
+services:
+
+  dbeaver_server:
+    image: ${DBEAVER_IMAGE}:${DBEAVER_VERSION}
+    restart: always
+#   no environment settings
+#   environment:
+    expose:
+      # The dbeaver port is exposed to other linked services within the docker network
+      - 8978
+    ports:
+      # The dbeaver port exposed on the host is mapped to ip 127.0.0.1 so it should only be visible to the host and not other host network systems.
+      # If the published attribute is not specified a port will be dynamically assigned.
+      - target: 8978
+        published: 8978
+        host_ip: 127.0.0.1
+        protocol: tcp
+        mode: host
+    volumes:
+      # The volume for managing the dbeaver workspace
+      - dbeaver:/opt/cloudbeaver/workspace
+    labels:
+      com.qlik.presales.description: "dbeaver"
+      com.qlik.presales.author: "ed.ost@qlik.com"
+      com.qlik.presales.source: "https://hub.docker.com/r/dbeaver/cloudbeaver"
+
+volumes:
+  dbeaver:
+    labels:
+      com.qlik.presales.description: "dbeaver worksapce storage"
