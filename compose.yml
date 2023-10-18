@@ -28,4 +28,4 @@ services:
 volumes:
   dbeaver:
     labels:
-      com.qlik.presales.description: "dbeaver worksapce storage"
+      com.qlik.presales.description: "dbeaver workspace storage"
