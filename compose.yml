@@ -8,17 +8,16 @@ services:
 #   environment:
     expose:
       # The dbeaver port is exposed to other linked services within the docker network
-      - 8978
+      - ${DBEAVER_CONTAINER_PORT}
     ports:
       # The dbeaver port exposed on the host is mapped to ip 127.0.0.1 so it should only be visible to the host and not other host network systems.
-      # If the published attribute is not specified a port will be dynamically assigned.
-      - target: 8978
-        published: 8978
-        host_ip: 127.0.0.1
+      # If the published attribute is not specified or the empty string a port will be dynamically assigned.
+      - target: ${DBEAVER_CONTAINER_PORT}
+        published: ${DBEAVER_HOST_PORT}
+        host_ip: ${DBEAVER_HOST_IP}
         protocol: tcp
         mode: host
     volumes:
-      # The volume for managing the dbeaver workspace
       - dbeaver:/opt/cloudbeaver/workspace
     labels:
       com.qlik.presales.description: "dbeaver"
